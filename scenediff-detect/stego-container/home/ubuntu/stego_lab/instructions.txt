@@ -1,0 +1,41 @@
+BÀI THỰC HÀNH: PHÁT HIỆN GIẤU TIN TRONG VIDEO DỰA TRÊN SỰ KHÁC BIỆT KHUNG CẢNH
+Mức độ khó: Khá (Đòi hỏi tư duy thống kê toán học)
+====================================================================
+
+1. GIỚI THIỆU
+Trong bài thực hành này, bạn đóng vai trò là một chuyên gia phân tích nghiệp vụ phòng thủ mạng (Steganalyst). Nhiệm vụ của bạn là lập trình một công cụ tự động phát hiện mã độc ẩn hoặc dữ liệu giấu bất hợp pháp (steganography) trong các khung hình chuyển cảnh của video bằng phép phân tích Shannon Entropy trên dòng bit LSB.
+
+Do dữ liệu giấu ẩn (stego) thường được mã hóa hoặc nén để tối đa hóa tính bí mật, các bit LSB của nó sẽ có xu hướng phân bố cực kỳ ngẫu nhiên và hỗn loạn (Entropy tiệm cận 1.0). Trong khi đó, dòng bit LSB tự nhiên của các khung hình chuyển cảnh sạch sẽ giữ nguyên tính quy luật của ảnh gốc hoặc chứa gradient tự nhiên (Entropy thấp, thường < 0.95).
+
+2. CÁC TÁC VỤ CỦA SINH VIÊN
+
+TÁC VỤ 1: Khởi động môi trường và xác minh tệp tin mẫu
+- Kiểm tra sự hiện diện của hai video kiểm thử đã được sinh tự động trên hệ thống:
+  ls -l video_clean.mp4 video_stego.mp4
+
+TÁC VỤ 2: Lập trình hoàn thiện công cụ phát hiện (detect.py)
+- Mở file detect.py bằng trình soạn thảo văn bản (nano hoặc vim):
+  nano detect.py
+- Hoàn thành 4 hàm có đánh dấu TODO:
+  - calculate_frame_difference: Tính sai lệch thang xám tuyệt đối trung bình giữa 2 ảnh.
+  - detect_scene_changes: Xác định danh sách các khung hình chuyển cảnh (diff > threshold).
+  - calculate_shannon_entropy: Áp dụng công thức Shannon Entropy để đo độ hỗn loạn của mảng bit.
+  - analyze_lsb_entropy: Trích xuất bit LSB của kênh màu RGB từ max_pixels đầu tiên, sau đó tính Entropy của chúng.
+
+TÁC VỤ 3: Thực thi phân tích và phát hiện Video sạch
+- Chạy công cụ phân tích trên tệp video sạch:
+  python3 detect.py -i video_clean.mp4 -o report_clean.txt -t 10.0
+- Xác minh báo cáo được tạo ra. Kết quả phân tích (RESULT) phải là CLEAN:
+  cat report_clean.txt
+
+TÁC VỤ 4: Thực thi phân tích và phát hiện Video chứa thông điệp ẩn (Stego)
+- Chạy công cụ phân tích trên tệp video stego:
+  python3 detect.py -i video_stego.mp4 -o report_stego.txt -t 10.0
+- Xác minh báo cáo được tạo ra. Kết quả phải là STEGO và chỉ ra đúng các khung hình bị nghi ngờ nhúng stego (ví dụ: Frame 30, 60):
+  cat report_stego.txt
+
+TÁC VỤ 5: Tạo báo cáo kết quả cuối cùng để chấm điểm
+- Chạy công cụ detect.py trên tệp video stego nhưng ghi đè vào file report.txt chính thức của lab:
+  python3 detect.py -i video_stego.mp4 -o report.txt -t 10.0
+- Kiểm tra tiến độ chấm điểm tự động tại chỗ:
+  ./checkwork.sh
