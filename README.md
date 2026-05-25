@@ -25,14 +25,13 @@ Bài thực hành **`scenediff-detect`** được thiết kế nhằm giúp sinh
     │   ├── results.config                           # Khai báo biến trích xuất điểm số
     │   └── goals.config                             # Quy chuẩn mục tiêu đánh giá tự động
     └── stego-container/
-        └── home/ubuntu/stego_lab/
-            ├── detect.py                            # Khung mã nguồn sinh viên cần hoàn thiện (TODO)
-            ├── generate_test_cases.py               # Tự động sinh video sạch và video stego
-            ├── startup.sh                           # Tập lệnh tự chạy khi kích hoạt lab
-            ├── instructions.txt                     # Hướng dẫn nhiệm vụ trong container
-            ├── checkwork.sh                         # Kịch bản tự chấm điểm tại chỗ (100 điểm)
-            └── solution/
-                └── detect_sol.py                    # Giải pháp mẫu hoàn chỉnh của giảng viên
+        ├── detect.py                            # Khung mã nguồn sinh viên cần hoàn thiện (TODO)
+        ├── generate_test_cases.py               # Tự động sinh video sạch và video stego
+        ├── startup.sh                           # Tập lệnh tự chạy khi kích hoạt lab
+        ├── instructions.txt                     # Hướng dẫn nhiệm vụ trong container
+        ├── checkwork.sh                         # Kịch bản tự chấm điểm tại chỗ (100 điểm)
+        └── solution/
+            └── detect_sol.py                    # Giải pháp mẫu hoàn chỉnh của giảng viên
 ```
 
 ---
